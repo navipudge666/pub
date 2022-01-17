@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    h1= title
+    Reservations 
+    ul
+        each reservation in reservations
+            li Table: #{reservation.table.id}
+            ul 
+                li Customer: #{reservation.customer.firstName} #{reservation.customer.secondName}
+                li From: #{reservation.dateFrom}
+                li To: #{reservation.dateTo}
+
+        else
+            li There are no reservations.
+
+    form(method='post', action='')
+        div.form-group
+            label(for='customer') Name:
+            input#client_name.form-control(type='text', placeholder='Your name' name='customer_name' required='true' )
+        div.form-group
+            label(for='phonenumber') Phonenumber:
+            input#client_name.form-control(type='text', placeholder='Your phonenumber' name='customer_phonenumber' required='true' )
+        div.form-group
+            label(for='table_number') Table:
+            select#table_number.form-control(type='text', name='table_id' required='true' )
+                for table in tables
+                    option(value=table.id ) #{table.id}
+        div.form-group
+            label(for='time_from') Time from:
+            select#time_from.form-control(type='text', name='time_from' required='true' )
+                for time in times
+                    option(value=time ) #{time} 
+        div.form-group
+            label(for='time_to') Time to:
+            select#time_to.form-control(type='text', name='time_to' required='true' )
+                for time in times
+                    option(value=time ) #{time} 
+        input(value='Reserve', type='submit')
