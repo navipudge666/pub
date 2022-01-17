@@ -74,7 +74,7 @@ exports.reservation_create_post = function(req, res) {
                     Reservation.find({}).sort({id: -1}).exec(function(err, result){
 
                         var new_id = 0;
-                        if (result.length > 0) result[0].id + 1;
+                        if (result.length > 0) new id = result[0].id + 1;
                         Customer.find({phoneNumber: customer_phone}).exec(function(err, customers){
                             var customer;
                             if (customers.length == 0){
