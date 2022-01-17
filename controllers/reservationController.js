@@ -57,7 +57,9 @@ exports.reservation_create_post = function(req, res) {
                 //console.log(reservations);
                 var time_is_reserved = false;
                 reservations.forEach(reservation => {
-                    if (reservation.table.id != table.id || !((new Date()) - reservation.dateTo < (new Date(days=1))))
+                    var today = new Date()
+                    if (reservation.table.id != table.id || 
+                        today.getDate() == reservation.dateTo.getDate() && today.getMonth() == reservation.dateTo.getMonth())
                     {
                         var start = reservation.dateFrom.getHours();
                         var end = reservation.dateTo.getHours();
@@ -76,7 +78,7 @@ exports.reservation_create_post = function(req, res) {
                             if (customers.length == 0){
                                 customer = new Customer({
                                     firstName: customer_name[0],
-                                    secondName: (customer_name.length > 1? customer_name[1] : ''),
+                                    secondName: (customer_name.length > 1? customer_name[1] : '-'),
                                     phoneNumber: customer_phone
                                 })
                                 customer.save()
